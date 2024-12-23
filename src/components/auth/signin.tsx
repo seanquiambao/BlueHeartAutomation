@@ -4,6 +4,7 @@ import * as React from "react";
 import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Oauth from "./oauth";
 
 const Signin = () => {
   const { isLoaded, signIn, setActive } = useSignIn();
@@ -41,6 +42,15 @@ const Signin = () => {
     }
   };
 
+  // if (!signIn) return null
+
+  // const signInWith = (strategy: OAuthStrategy) => {
+  //   return signIn.authenticateWithRedirect({
+  //     strategy,
+  //     redirectUrl: '/sign-up/sso-callback',
+  //     redirectUrlComplete: '/',
+  //   })
+  // }
   // Display a form to capture the user's email and password
   return (
     <div className="flex justify-center h-screen items-center p-2 md:p-0">
@@ -80,6 +90,10 @@ const Signin = () => {
                 value={password}
                 className="border border-black rounded"
               />
+            </div>
+            <div className="flex flex-col font-semibold items-center">
+              or
+              <Oauth />
             </div>
             <p className="text-sm font-medium text-center text-black">
               Don&apos;t have an acccount?
