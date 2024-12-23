@@ -1,1 +1,1 @@
-export const SAMPLE = [1,2,3]
+export const SAMPLE = [1, 2, 3];

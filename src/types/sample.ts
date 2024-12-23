@@ -1,3 +1,3 @@
 export interface SampleType {
-    id: number;
+  id: number;
 }
