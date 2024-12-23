@@ -5,9 +5,13 @@ import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Verification from "./verification";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Button } from "../ui/button";
 
 const Signup = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
+  const [username, setUsername] = React.useState("");
   const [emailAddress, setEmailAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [verifying, setVerifying] = React.useState(false);
@@ -110,11 +114,22 @@ const Signup = () => {
             </p>
             <form
               onSubmit={handleSubmit}
-              className="flex flex-col items-center space-y-4 w-full"
+              className="flex flex-col items-center space-y-4 w-full mt-5"
             >
               <div className="flex flex-col w-full gap-2">
-                <label htmlFor="email">Email Address</label>
-                <input
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  name="username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  className="border border-black rounded"
+                />
+              </div>
+              <div className="flex flex-col w-full gap-2">
+                <Label htmlFor="email">Email Address</Label>
+                <Input
                   id="email"
                   type="email"
                   name="email"
@@ -124,8 +139,8 @@ const Signup = () => {
                 />
               </div>
               <div className="flex flex-col w-full gap-2">
-                <label htmlFor="password">Password</label>
-                <input
+                <Label htmlFor="password">Password</Label>
+                <Input
                   id="password"
                   type="password"
                   name="password"
@@ -147,12 +162,13 @@ const Signup = () => {
                   </Link>
                 </p>
                 <div className="flex justify-center mt-4">
-                  <button
+                  <Button
+                    variant="ttickle"
                     type="submit"
                     className="px-6 py-2 text-white bg-ttickles-blue hover:opacity-75 duration-300"
                   >
                     Submit
-                  </button>
+                  </Button>
                 </div>
               </div>
             </form>
