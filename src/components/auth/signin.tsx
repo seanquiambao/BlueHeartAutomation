@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -11,9 +11,10 @@ import { Button } from "../ui/button";
 
 const Signin = () => {
   const { isLoaded, signIn, setActive } = useSignIn();
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [type, setType] = React.useState("password");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [type, setType] = useState("password");
+  const [clerkError, setClerkError] = useState("");
   const router = useRouter();
 
   // Handle the submission of the sign-in form
@@ -42,6 +43,7 @@ const Signin = () => {
     } catch (err: any) {
       // See https://clerk.com/docs/custom-flows/error-handling
       // for more info on error handling
+      setClerkError(err.errors[0].message);
       console.error(JSON.stringify(err, null, 2));
     }
   };
@@ -100,6 +102,9 @@ const Signin = () => {
                 // } }
                 className="border border-black rounded"
               />
+            </div>
+            <div className="text-red-600 mb-8">
+              {clerkError && <p>{clerkError}</p>}
             </div>
             <div className="flex flex-col font-semibold items-center">
               or

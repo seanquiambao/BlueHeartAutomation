@@ -1,6 +1,6 @@
 "use client";
 
-import * as React from "react";
+import { useState } from "react";
 import { useSignUp } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -11,12 +11,12 @@ import { Button } from "../ui/button";
 
 const Signup = () => {
   const { isLoaded, signUp, setActive } = useSignUp();
-  const [username, setUsername] = React.useState("");
-  const [emailAddress, setEmailAddress] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [verifying, setVerifying] = React.useState(false);
-  const [code, setCode] = React.useState("");
-  const [clerkError, setClerkError] = React.useState("");
+  const [username, setUsername] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [password, setPassword] = useState("");
+  const [verifying, setVerifying] = useState(false);
+  const [code, setCode] = useState("");
+  const [clerkError, setClerkError] = useState("");
   const router = useRouter();
 
   // Handle submission of the sign-up form
@@ -28,6 +28,7 @@ const Signup = () => {
     // Start the sign-up process using the email and password provided
     try {
       await signUp.create({
+        username,
         emailAddress,
         password,
       });
