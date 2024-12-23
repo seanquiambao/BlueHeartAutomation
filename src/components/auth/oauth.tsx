@@ -13,7 +13,7 @@ export const Oauth = () => {
   const signInWith = (strategy: OAuthStrategy) => {
     return signIn.authenticateWithRedirect({
       strategy,
-      redirectUrl: "/sign-up/sso-callback",
+      redirectUrl: "/",
       redirectUrlComplete: "/",
     });
   };
