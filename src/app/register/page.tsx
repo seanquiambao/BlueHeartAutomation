@@ -1,7 +1,6 @@
-
 const Page = () => {
     return(
-        <div>Admin Home</div>
+        <div>Register</div>
     );
 }
 
