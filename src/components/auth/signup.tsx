@@ -99,7 +99,7 @@ const Signup = () => {
       {!verifying ? (
         <div className="h-auto bg-white border border-black w-full md:w-1/3">
           <div className="p-6 md:p-8">
-            <h1 className="mb-6 text-5xl font-bold text-center text-black">
+            <h1 className="mb-6 text-5xl font-bold text-center text-ttickles-blue">
               Register your Organization
             </h1>
             <p className=" text-sm font-medium text-center whitespace-normal">
@@ -134,24 +134,22 @@ const Signup = () => {
                   className="border border-black rounded"
                 />
               </div>
-
               {/* CAPTCHA Widget */}
               <div id="clerk-captcha" />
-
               <div className="text-red-600 mb-8">
                 {clerkError && <p>{clerkError}</p>}
               </div>
               <div>
-                <p className="text-sm font-light text-center text-black">
+                <p className="text-sm font-medium text-center text-black">
                   Already have an acccount?
-                  <Link className="ml-2 text-black" href="/signin">
+                  <Link className="ml-2 text-ttickles-blue" href="/signin">
                     Sign in
                   </Link>
                 </p>
                 <div className="flex justify-center mt-4">
                   <button
                     type="submit"
-                    className="px-6 py-2 text-white bg-blue-700 hover:opacity-75 duration-300"
+                    className="px-6 py-2 text-white bg-ttickles-blue hover:opacity-75 duration-300"
                   >
                     Submit
                   </button>

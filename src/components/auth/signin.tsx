@@ -46,8 +46,8 @@ const Signin = () => {
     <div className="flex justify-center h-screen items-center p-2 md:p-0">
       <div className="h-auto bg-white border border-black w-full md:w-1/3">
         <div className="p-6 md:p-8">
-          <h1 className="mb-6 text-5xl font-bold text-center text-black">
-            Register your Organization
+          <h1 className="mb-6 text-5xl font-bold text-center text-ttickles-blue">
+            Welcome Back
           </h1>
           <p className=" text-sm font-medium text-center whitespace-normal">
             Join us and make a difference! By registering, you'll gain aces to a
@@ -81,15 +81,15 @@ const Signin = () => {
                 className="border border-black rounded"
               />
             </div>
-            <p className="text-sm font-light text-center text-black">
+            <p className="text-sm font-medium text-center text-black">
               Don&apos;t have an acccount?
-              <Link className="ml-2 text-gray-600" href="/signup">
+              <Link className="ml-2 text-ttickles-blue" href="/signup">
                 Sign up
               </Link>
             </p>
             <button
               type="submit"
-              className="px-6 py-2 text-white bg-blue-700 hover:opacity-75 duration-300"
+              className="px-6 py-2 text-white bg-ttickles-blue font-semibold hover:opacity-75 duration-300"
             >
               Sign in
             </button>

@@ -11,9 +11,9 @@ export default {
       colors: {
         ttickles: {
           blue: "#006d77",
-          lightblue: "83c5be",
-          white: "edf6f9",
-          gray: "7e8287",
+          lightblue: "#83c5be",
+          white: "#edf6f9",
+          gray: "#7e8287",
         },
         background: "var(--background)",
         foreground: "var(--foreground)",
