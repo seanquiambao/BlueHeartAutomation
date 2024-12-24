@@ -3,7 +3,19 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 const isProtectedRoute = createRouteMatcher(["/admin(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
-  if (isProtectedRoute(req)) await auth.protect();
+  if (isProtectedRoute(req)) {
+    try {
+      await auth.protect();
+    } catch {
+      const url = new URL("/login", req.url);
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: url.toString(),
+        },
+      });
+    }
+  }
 });
 
 export const config = {
