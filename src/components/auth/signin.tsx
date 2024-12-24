@@ -112,7 +112,7 @@ const Signin = () => {
             </div>
             <p className="text-sm font-medium text-center text-black">
               Don&apos;t have an acccount?
-              <Link className="ml-2 text-ttickles-blue" href="/signup">
+              <Link className="ml-2 text-ttickles-blue" href="register">
                 Sign up
               </Link>
             </p>

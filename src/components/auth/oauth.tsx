@@ -67,7 +67,7 @@ export const Oauth = () => {
       className="text-blue-600 font-bold text-lg border border-black p-1"
       onClick={() => handleSignIn("oauth_google")}
     >
-      Sign in with Google
+      Continue with Google
     </button>
   );
 };
