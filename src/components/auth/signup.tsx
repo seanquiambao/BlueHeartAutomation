@@ -79,26 +79,6 @@ const Signup = () => {
     }
   };
 
-  // Display the verification form to capture the OTP code
-  // if (verifying) {
-  //   return (
-  //     <>
-  //       <h1>Verify your email</h1>
-  //       <form onSubmit={handleVerify}>
-  //         <label id="code">Enter your verification code</label>
-  //         <input
-  //           value={code}
-  //           id="code"
-  //           name="code"
-  //           onChange={(e) => setCode(e.target.value)}
-  //         />
-  //         <button type="submit">Verify</button>
-  //       </form>
-  //     </>
-  //   );
-  // }
-
-  // Display the initial sign-up form to capture the email and password
   return (
     <div className="flex justify-center h-screen items-center p-2 md:p-0">
       {!verifying ? (

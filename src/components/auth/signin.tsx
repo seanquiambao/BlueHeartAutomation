@@ -116,11 +116,7 @@ const Signin = () => {
                 Sign up
               </Link>
             </p>
-            <Button
-              variant="ttickle"
-              type="submit"
-              className="px-6 py-2 text-white bg-ttickles-blue font-semibold hover:opacity-75 duration-300"
-            >
+            <Button variant="ttickle" type="submit">
               Sign in
             </Button>
           </form>
