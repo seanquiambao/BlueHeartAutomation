@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -5,7 +6,7 @@ import { useSignIn } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Oauth from "./oauth";
-import { Input, InputWithShow } from "../ui/input";
+import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 
@@ -13,7 +14,7 @@ const Signin = () => {
   const { isLoaded, signIn, setActive } = useSignIn();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [type, setType] = useState("password");
+  const [type] = useState("password");
   const [clerkError, setClerkError] = useState("");
   const router = useRouter();
 
@@ -66,8 +67,8 @@ const Signin = () => {
             Welcome Back
           </h1>
           <p className=" text-sm font-medium text-center whitespace-normal">
-            Join us and make a difference! By registering, you'll gain aces to a
-            vibrant community of changemakers and unlock tools to help your
+            Join us and make a difference! By registering, you will gain access
+            to a vibrant community of changemakers and unlock tools to help your
             nonprofit shine. Share your mission, connect with supporters, and
             amplify your impact
           </p>

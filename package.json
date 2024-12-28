@@ -8,7 +8,7 @@
     "start": "next start",
     "check": "npx prettier --check .",
     "format": "npx prettier --write .",
-    "lint": "next lint",
+    "eslint": "next lint",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -18,12 +18,14 @@
     "class-variance-authority": "^0.7.1",
     "input-otp": "^1.4.1",
     "next": "15.0.3",
+    "pino": "^9.6.0",
     "react": "19.0.0-rc-66855b96-20241106",
     "react-dom": "19.0.0-rc-66855b96-20241106",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
