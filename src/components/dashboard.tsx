@@ -29,10 +29,10 @@ const Dashboard = () => {
           </div>
         </div>
         {collapse ? (
-          <div className="relative flex w-full border-2 border-black gap-4 px-6 py-4">
+          <div className="relative flex w-full border-2 border-black gap-4 px-6 py-1">
             <button
               onClick={() => setCollapse(false)}
-              className="absolute right-4"
+              className="absolute right-3 top-2"
             >
               <X className="text-lg" />
             </button>
