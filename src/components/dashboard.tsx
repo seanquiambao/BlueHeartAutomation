@@ -63,7 +63,7 @@ const Dashboard = () => {
           {GLAZE.map((glaze, index) => (
             <div
               key={index}
-              className="flex flex-col border-2 border-black text-center p-5 px-10"
+              className="flex flex-col w-full m-4 border-2 border-black text-center p-5"
             >
               <p className="text-5xl font-bold">{glaze.value}</p>
               <p className="text-xl font-semibold">{glaze.name}</p>
