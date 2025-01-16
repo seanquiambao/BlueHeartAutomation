@@ -1,5 +1,6 @@
 import Dashboard from "@/components/dashboard";
-const page = () => {
+
+const Page = () => {
   return (
     <div className="w-full flex justify-center">
       <Dashboard />
@@ -7,4 +8,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
