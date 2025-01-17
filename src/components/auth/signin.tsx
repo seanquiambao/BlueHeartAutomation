@@ -11,7 +11,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { useAuth } from "@clerk/nextjs";
 import { signInWithCustomToken } from "firebase/auth";
-import { auth } from "../../../server/utils/firebase";
+import { auth } from "@/utils/firebase";
 // import { signinAuth } from "@/utils/firebase";
 
 const Signin = () => {
