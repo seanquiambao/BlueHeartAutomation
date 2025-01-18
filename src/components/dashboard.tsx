@@ -2,9 +2,9 @@
 import { useState } from "react";
 import mock from "@/public/user/mock.png";
 import Image from "next/image";
-import Link from "next/link";
-import { GLAZE, link } from "@/data/mockDashboard";
-import { Link2, X } from "lucide-react";
+import { GLAZE } from "@/data/mockDashboard";
+import { X } from "lucide-react";
+import OrgHeader from "./org-header";
 
 const Dashboard = () => {
   const [collapse, setCollapse] = useState(true);
@@ -12,22 +12,7 @@ const Dashboard = () => {
   return (
     <div className="flex w-full justify-center">
       <div className="flex flex-col items-center w-10/12 m-10 gap-8">
-        <div className="flex justify-start w-full gap-4">
-          <Image src={mock} alt="logo" />
-          <div>
-            <h1 className="text-3xl font-extrabold">POOR MAGAZINE</h1>
-            {link.map((link, index) => (
-              <Link
-                key={index}
-                href={link.url}
-                className="flex gap-2 hover:opacity-40"
-              >
-                <Link2 />
-                <span className="font-bold">{link.name}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
+        <OrgHeader />
         {collapse ? (
           <div className="relative flex w-full border-2 border-black gap-4 px-6 py-1">
             <button
