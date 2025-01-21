@@ -1,10 +1,10 @@
-"use client"
-import React, { useState, ChangeEvent } from 'react';
+"use client";
+import React, { useState, ChangeEvent } from "react";
 
 export function Newsletter(): JSX.Element {
-  const [to, setTo] = useState<string>('');
-  const [subject, setSubject] = useState<string>('');
-  const [body, setBody] = useState<string>('');
+  const [to, setTo] = useState<string>("");
+  const [subject, setSubject] = useState<string>("");
+  const [body, setBody] = useState<string>("");
 
   const handleToChange = (event: ChangeEvent<HTMLInputElement>): void => {
     setTo(event.target.value);
