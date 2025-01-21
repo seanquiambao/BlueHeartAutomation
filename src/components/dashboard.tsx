@@ -12,7 +12,7 @@ const Dashboard = () => {
   return (
     <div className="flex w-full justify-center">
       <div className="flex flex-col items-center w-10/12 m-10 gap-8">
-        <OrgHeader />
+        <OrgHeader editable={false} />
         {collapse ? (
           <div className="relative flex w-full border-2 border-black gap-4 px-6 py-1">
             <button
