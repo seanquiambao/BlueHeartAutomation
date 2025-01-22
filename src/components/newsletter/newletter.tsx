@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, ChangeEvent } from "react";
-import { Textarea } from "./ui/textarea";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
-import { Label } from "./ui/label";
+import { Textarea } from "../ui/textarea";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
 
 export function Newsletter(): JSX.Element {
   const [to, setTo] = useState<string>("");
@@ -27,7 +27,7 @@ export function Newsletter(): JSX.Element {
   };
 
   return (
-    <div className="ml-11 mt-5 w-2/3 flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <div className="font-extrabold text-3xl mb-8">Newsletter</div>
       <div>
         <Label className="font-bold">To</Label>
@@ -40,7 +40,7 @@ export function Newsletter(): JSX.Element {
       </div>
       <div>
         <Label className="font-bold">
-          Write a prompt for newsletter generation{" "}
+          Write a prompt for newsletter generation
         </Label>
         <Textarea value={body} onChange={handleBodyChange} />
       </div>
