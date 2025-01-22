@@ -1,5 +1,8 @@
 "use client";
 import React, { useState, ChangeEvent } from "react";
+import { Textarea } from "./ui/textarea";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
 
 export function Newsletter(): JSX.Element {
   const [to, setTo] = useState<string>("");
@@ -14,34 +17,28 @@ export function Newsletter(): JSX.Element {
     setSubject(event.target.value);
   };
 
-  const handleBodyChange = (event: ChangeEvent<HTMLInputElement>): void => {
+  const handleBodyChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
+    setBody(event.target.value);
+  };
+
+  const handleAIChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setBody(event.target.value);
   };
 
   return (
-    <div className="ml-11 mt-5 w-full">
+    <div className="ml-11 mt-5 w-2/3">
       <div className="font-extrabold text-3xl pb-7">Newsletter</div>
       <div>To </div>
-      <input
-        type="text"
-        value={to}
-        onChange={handleToChange}
-        className="border-2"
-      />
+      <Input type="text" value={to} onChange={handleToChange} />
       <div>Subject </div>
-      <input
-        type="text"
-        value={subject}
-        onChange={handleSubjectChange}
-        className="border-2"
-      />
-      <div>Body </div>
-      <input
-        type="text"
-        value={body}
-        onChange={handleBodyChange}
-        className="border-2 w-3/4 h-1/3 "
-      />
+      <Input type="text" value={subject} onChange={handleSubjectChange} />
+      <div>Prompt </div>
+      <Textarea value={body} onChange={handleBodyChange} className="mb-5" />
+      <Button className="border-2 mb-5 hover:bg-slate-200">
+        Optimize with AI
+      </Button>
+      <div>Optimized Newsletter </div>
+      <Textarea value={body} onChange={handleAIChange} />
     </div>
   );
 }
