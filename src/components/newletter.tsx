@@ -26,19 +26,29 @@ export function Newsletter(): JSX.Element {
   };
 
   return (
-    <div className="ml-11 mt-5 w-2/3">
-      <div className="font-extrabold text-3xl pb-7">Newsletter</div>
-      <div>To </div>
-      <Input type="text" value={to} onChange={handleToChange} />
-      <div>Subject </div>
-      <Input type="text" value={subject} onChange={handleSubjectChange} />
-      <div>Prompt </div>
-      <Textarea value={body} onChange={handleBodyChange} className="mb-5" />
-      <Button className="border-2 mb-5 hover:bg-slate-200">
+    <div className="ml-11 mt-5 w-2/3 flex flex-col gap-4">
+      <div className="font-extrabold text-3xl mb-8">Newsletter</div>
+      <div>
+        <div>To </div>
+        <Input type="text" value={to} onChange={handleToChange} />
+      </div>
+
+      <div>
+        <div>Subject </div>
+        <Input type="text" value={subject} onChange={handleSubjectChange} />
+      </div>
+      <div>
+        <div>Write a prompt for newsletter generation </div>
+        <Textarea value={body} onChange={handleBodyChange} />
+      </div>
+
+      <Button className="border-2 hover:bg-slate-200 w-1/5">
         Optimize with AI
       </Button>
-      <div>Optimized Newsletter </div>
-      <Textarea value={body} onChange={handleAIChange} />
+      <div>
+        <div>Optimized Newsletter </div>
+        <Textarea value={body} onChange={handleAIChange} />
+      </div>
     </div>
   );
 }
