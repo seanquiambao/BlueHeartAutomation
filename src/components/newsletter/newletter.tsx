@@ -4,45 +4,44 @@ import { Textarea } from "../ui/textarea";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
+import { QUESTIONS } from "@/data/newsletter";
+import Select from "@/components/global/select";
+import { HTMLInputs } from "@/types/inputs";
+import { NewsletterType } from "@/types/newsletter";
 
-export function Newsletter(): JSX.Element {
-  const [to, setTo] = useState<string>("");
-  const [subject, setSubject] = useState<string>("");
-  const [body, setBody] = useState<string>("");
+const Newsletter = () => {
+  const [newsletter, setNewsletter] = useState<NewsletterType>({
+    to: "",
+    subject: "",
+    preview: "",
+    body: "",
+  });
+  const [prompt, setPrompt] = useState<string>("");
 
-  const handleToChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setTo(event.target.value);
+  const handleChange = (e: ChangeEvent<HTMLInputs>, key: string) => {
+    setNewsletter({ ...newsletter, [key]: e.target.value });
   };
-
-  const handleSubjectChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSubject(event.target.value);
-  };
-
-  const handleBodyChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    setBody(event.target.value);
-  };
-
-  const handleAIChange = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    setBody(event.target.value);
-  };
-
   return (
     <div className="flex flex-col gap-4">
       <div className="font-extrabold text-3xl mb-8">Newsletter</div>
-      <div>
-        <Label className="font-bold">To</Label>
-        <Input type="text" value={to} onChange={handleToChange} />
-      </div>
-
-      <div>
-        <Label className="font-bold">Subject</Label>
-        <Input type="text" value={subject} onChange={handleSubjectChange} />
-      </div>
+      {QUESTIONS.map((question, index) => (
+        <div key={index} className="flex flex-col gap-2">
+          <Label className="font-bold">{question.title}</Label>
+          {question.type === "input" && (
+            <Input
+              type="text"
+              value={newsletter[question.title as keyof NewsletterType]}
+              onChange={(e) => handleChange(e, question.title)}
+            />
+          )}
+          {question.type === "select" && <Select />}
+        </div>
+      ))}
       <div>
         <Label className="font-bold">
           Write a prompt for newsletter generation
         </Label>
-        <Textarea value={body} onChange={handleBodyChange} />
+        <Textarea value={prompt} onChange={(e) => setPrompt(e.target.value)} />
       </div>
 
       <Button className="border-2 hover:bg-slate-200 w-1/5">
@@ -50,10 +49,13 @@ export function Newsletter(): JSX.Element {
       </Button>
       <div>
         <Label className="font-bold">Optimized Newsletter</Label>
-        <Textarea value={body} onChange={handleAIChange} />
+        <Textarea
+          value={newsletter.body}
+          onChange={(e) => handleChange(e, "body")}
+        />
       </div>
     </div>
   );
-}
+};
 
 export default Newsletter;

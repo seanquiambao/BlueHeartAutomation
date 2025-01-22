@@ -6,8 +6,8 @@ import { Textarea } from "./ui/textarea";
 import { Pencil } from "lucide-react";
 import { useState } from "react";
 import { ChangeEvent } from "react";
+import { HTMLInputs } from "@/types/inputs";
 
-type HTMLInputs = HTMLInputElement | HTMLTextAreaElement;
 const Information = () => {
   const [edit, setEdit] = useState<boolean>(false);
   const [info, setInfo] = useState([
