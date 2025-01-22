@@ -3,6 +3,7 @@ import React, { useState, ChangeEvent } from "react";
 import { Textarea } from "./ui/textarea";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { Label } from "./ui/label";
 
 export function Newsletter(): JSX.Element {
   const [to, setTo] = useState<string>("");
@@ -29,16 +30,18 @@ export function Newsletter(): JSX.Element {
     <div className="ml-11 mt-5 w-2/3 flex flex-col gap-4">
       <div className="font-extrabold text-3xl mb-8">Newsletter</div>
       <div>
-        <div>To </div>
+        <Label className="font-bold">To</Label>
         <Input type="text" value={to} onChange={handleToChange} />
       </div>
 
       <div>
-        <div>Subject </div>
+        <Label className="font-bold">Subject</Label>
         <Input type="text" value={subject} onChange={handleSubjectChange} />
       </div>
       <div>
-        <div>Write a prompt for newsletter generation </div>
+        <Label className="font-bold">
+          Write a prompt for newsletter generation{" "}
+        </Label>
         <Textarea value={body} onChange={handleBodyChange} />
       </div>
 
@@ -46,7 +49,7 @@ export function Newsletter(): JSX.Element {
         Optimize with AI
       </Button>
       <div>
-        <div>Optimized Newsletter </div>
+        <Label className="font-bold">Optimized Newsletter</Label>
         <Textarea value={body} onChange={handleAIChange} />
       </div>
     </div>
