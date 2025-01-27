@@ -1,21 +1,16 @@
 "use client";
 import React, { useState, ChangeEvent } from "react";
 import { Textarea } from "../ui/textarea";
-import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
-import { QUESTIONS } from "@/data/newsletter";
-import Select from "@/components/global/select";
-import { HTMLInputs } from "@/types/inputs";
 import { NewsletterType } from "@/types/newsletter";
+import { HTMLInputs } from "@/types/inputs";
 
-const Newsletter = () => {
-  const [newsletter, setNewsletter] = useState<NewsletterType>({
-    to: "",
-    subject: "",
-    preview: "",
-    body: "",
-  });
+type props = {
+  newsletter: NewsletterType;
+  setNewsletter: (value: NewsletterType) => void;
+};
+const Newsletter = ({ newsletter, setNewsletter }: props) => {
   const [prompt, setPrompt] = useState<string>("");
 
   const handleChange = (e: ChangeEvent<HTMLInputs>, key: string) => {
@@ -24,19 +19,6 @@ const Newsletter = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="font-extrabold text-3xl mb-8">Newsletter</div>
-      {QUESTIONS.map((question, index) => (
-        <div key={index} className="flex flex-col gap-2">
-          <Label className="font-bold">{question.title}</Label>
-          {question.type === "input" && (
-            <Input
-              type="text"
-              value={newsletter[question.title as keyof NewsletterType]}
-              onChange={(e) => handleChange(e, question.title)}
-            />
-          )}
-          {question.type === "select" && <Select />}
-        </div>
-      ))}
       <div>
         <Label className="font-bold">
           Write a prompt for newsletter generation

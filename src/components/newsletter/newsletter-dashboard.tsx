@@ -1,10 +1,46 @@
+"use client";
 import { Plus, Trash } from "lucide-react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import Select from "@/components/global/select";
 import NewsletterCard from "./newsletter-card";
+import {
+  AlertDialog,
+  AlertDialogTitle,
+  AlertDialogContent,
+  AlertDialogCancel,
+  AlertDialogDescription,
+  AlertDialogHeader,
+} from "../ui/alert-dialog";
+import { useState, ChangeEvent } from "react";
+import { QUESTIONS } from "@/data/newsletter";
+import { NewsletterType } from "@/types/newsletter";
+import { HTMLInputs } from "@/types/inputs";
+import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
+import { Button } from "../ui/button";
 
 const NewsletterDashboard = () => {
+  const [popup, setPopup] = useState({
+    visible: false,
+  });
+
+  const [newsletter, setNewsletter] = useState<NewsletterType>({
+    to: "",
+    subject: "",
+    preview: "",
+    body: "",
+  });
+  const handleChange = (e: ChangeEvent<HTMLInputs>, key: string) => {
+    setNewsletter({ ...newsletter, [key]: e.target.value });
+  };
+
+  const handleConfigure = () => {
+    console.log(popup);
+    setPopup({
+      ...popup,
+      visible: true,
+    });
+  };
   return (
     <div className="flex flex-col w-10/12 m-10 gap-4">
       <Label className="font-extrabold text-3xl">Newsletter</Label>
@@ -15,8 +51,48 @@ const NewsletterDashboard = () => {
         <Trash size={48} className="cursor-pointer" />
       </div>
       <div className="grid grid-cols-3">
-        <NewsletterCard title="Giving Guide 2024" date="12/1/2025" id={2} />
+        <NewsletterCard
+          title="Giving Guide 2024"
+          id={2}
+          handleConfigure={handleConfigure}
+        />
       </div>
+
+      <AlertDialog open={popup.visible}>
+        <AlertDialogContent className="flex flex-col">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Configure Newsletter</AlertDialogTitle>
+          </AlertDialogHeader>
+          <AlertDialogDescription className="flex flex-col gap-4">
+            {QUESTIONS.map((question, index) => (
+              <div key={index} className="flex flex-col gap-2">
+                <Label className="font-bold">{question.title}</Label>
+                {question.type === "input" && (
+                  <Input
+                    type="text"
+                    value={newsletter[question.title as keyof NewsletterType]}
+                    onChange={(e) => handleChange(e, question.title)}
+                  />
+                )}
+                {question.type === "select" && <Select />}
+              </div>
+            ))}
+          </AlertDialogDescription>
+
+          <div className="flex flex-row self-end gap-2">
+            <AlertDialogCancel
+              onClick={() => setPopup({ ...popup, visible: false })}
+            >
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction>
+              <Button onClick={() => setPopup({ ...popup, visible: false })}>
+                Submit
+              </Button>
+            </AlertDialogAction>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
