@@ -1,10 +1,8 @@
-import React from "react";
-import Newsletter from "@/components/newletter";
-
+import NewsletterDashboard from "@/components/newsletter/newsletter-dashboard";
 const Page = () => {
   return (
     <div className="w-full flex ">
-      <Newsletter />
+      <NewsletterDashboard />
     </div>
   );
 };
