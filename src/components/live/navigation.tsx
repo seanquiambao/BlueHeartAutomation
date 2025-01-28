@@ -6,7 +6,7 @@ import Link from "next/link";
 const Navigation = () => {
   return (
     <div className="flex justify-between w-full sticky top-0 bg-gradient-to-r from-ttickles-blue to-ttickles-lightblue p-4 shadow z-50">
-      <p className="text-2xl font-semibold text-white">BlueHeart</p>
+      <p className="text-2xl font-semibold text-white">TTickle</p>
       <SignedOut>
         <div className="flex gap-x-4 items-center">
           <Link
@@ -30,7 +30,7 @@ const Navigation = () => {
               Sign In
             </Link> */}
           <Link
-            className="border px-2 py-1 border-black font-semibold text-black bg-white shadow-sm hover:bg-white/70 duration-300 rounded-xl"
+            className="px-2 py-1  bg-ttickles-blue text-white font-bold hover:scale-105 duration-300 rounded-xl"
             href={"register"}
           >
             Join Us
