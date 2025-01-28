@@ -13,7 +13,7 @@ import {
   AlertDialogHeader,
 } from "../ui/alert-dialog";
 import { useState, ChangeEvent } from "react";
-import { QUESTIONS } from "@/data/newsletter";
+import { QUESTIONS } from "@/data/newsletter/newsletter";
 import { NewsletterType } from "@/types/newsletter";
 import { HTMLInputs } from "@/types/inputs";
 import { AlertDialogAction } from "@radix-ui/react-alert-dialog";
