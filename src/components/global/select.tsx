@@ -13,7 +13,7 @@ const Select = () => {
       <SelectTrigger>
         <SelectValue placeholder="filter" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="bg-white">
         <SelectGroup>
           <SelectItem value="apple">Apple</SelectItem>
         </SelectGroup>

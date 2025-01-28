@@ -86,7 +86,10 @@ const NewsletterDashboard = () => {
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction>
-              <Button onClick={() => setPopup({ ...popup, visible: false })}>
+              <Button
+                onClick={() => setPopup({ ...popup, visible: false })}
+                className="bg-ttickles-blue text-white hover:bg-ttickles-blue"
+              >
                 Submit
               </Button>
             </AlertDialogAction>
