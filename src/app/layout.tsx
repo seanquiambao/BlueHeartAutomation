@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
-import AuthProvider from "@/components/auth/auth";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,7 +26,6 @@ export default async function RootLayout({
 }>) {
   return (
     <ClerkProvider>
-      <AuthProvider />
       <html lang="en">
         <head>
           {/* <script src="https://unpkg.com/react-scan/dist/auto.global.js" async /> */}

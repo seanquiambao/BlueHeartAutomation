@@ -1,7 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-const isProtectedRoute = createRouteMatcher(["/"]);
+const isProtectedRoute = createRouteMatcher(["/admin(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
   if (isProtectedRoute(req)) {
@@ -18,6 +18,7 @@ export default clerkMiddleware(async (auth, req) => {
     }
   }
   const path = req.nextUrl.pathname;
+
   //TODO: check if they have an org, if not, redirect to /user
 
   // If they just go to /orgs

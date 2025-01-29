@@ -1,29 +1,7 @@
-"use client";
-
-// import { useAuth } from "@clerk/nextjs";
-// import { signInWithCustomToken } from "firebase/auth";
-// import { auth } from "../../server/utils/firebase";
-
-export const signinAuth = async () => {
-  // const { getToken } = useAuth();
-  // try {
-  //   const token = await getToken({ template: "integration_firebase" });
-  //   if (!token) {
-  //     console.error("No token retrieved from Clerk.");
-  //     return;
-  //   }
-  //   const userCredentials = await signInWithCustomToken(auth, token);
-  //   console.log("Firebase User:", userCredentials.user);
-  // } catch (error) {
-  //   console.error("Error signing in with Firebase:", error);
-  // }
-};
-
-export const signupAuth = () => {};
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 // TODO Add SDKs for Firebase products that you want to use
 // https //firebase.google.com/docs/web/setup#available-libraries
 
@@ -41,5 +19,5 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
 export const db = getFirestore(app);
+export const auth = getAuth(app);

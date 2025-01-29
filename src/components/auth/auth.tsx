@@ -1,30 +1,51 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/nextjs";
-import { auth } from "@/utils/firebase";
 import { signInWithCustomToken } from "firebase/auth";
-import { useEffect } from "react";
+import { auth as firebaseAuth } from "@/utils/firebase";
 
-const AuthProvider = () => {
-  const { isLoaded, getToken, userId } = useAuth();
+export default function AuthProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { isLoaded, userId, getToken } = useAuth();
+
+  // Tracks whether we've finished the signIn/fetch steps
+  const [isSyncing, setIsSyncing] = useState(true);
+
   useEffect(() => {
-    if (!isLoaded) return;
+    if (!isLoaded) return; // Wait until Clerk is loaded
+    if (!userId) {
+      // If user is not signed in,
+      // decide whether you want to block or allow a "guest" view
+      setIsSyncing(false);
+      return;
+    }
 
-    const checkFirebase = async () => {
-      // Handle if the user is not signed in
-      // You could display content, or redirect them to a sign-in page
-      if (userId) {
+    // If user *is* signed in, do the Firebase custom token flow
+    const doSync = async () => {
+      try {
         const token = await getToken({ template: "integration_firebase" });
-
-        const userCredentials = await signInWithCustomToken(auth, token || "");
-        // The userCredentials.user object can call the methods of
-        // the Firebase platform as an authenticated user.
-        console.log("User:", userCredentials.user);
+        await signInWithCustomToken(firebaseAuth, token ?? "");
+        // Then call your API route
+        await fetch("/api/user", { method: "POST" });
+      } finally {
+        setIsSyncing(false);
       }
     };
-    checkFirebase();
-  }, [isLoaded]);
-  return <></>;
-};
 
-export default AuthProvider;
+    void doSync();
+  }, [isLoaded, userId, getToken]);
+
+  // While we are still syncing, show a loading spinner (or blank screen)
+  if (isSyncing) {
+    return <div>Loading...</div>;
+  }
+
+  console.log("aaa");
+
+  // Otherwise render the real app
+  return <>{children}</>;
+}
