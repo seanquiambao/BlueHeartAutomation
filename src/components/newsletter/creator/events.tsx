@@ -14,22 +14,54 @@ import { Popup } from "@/types/popup";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { QUESTIONS } from "@/data/newsletter/event";
+import { MOCK, QUESTIONS } from "@/data/newsletter/event";
+import { ChangeEvent } from "react";
+import { EventType } from "@/types/event";
 
-const EventModal = () => {
+type props = {
+  event: EventType;
+  setEvent: (value: EventType) => void;
+};
+
+const EventModal = ({ event, setEvent }: props) => {
   return (
     <>
       {QUESTIONS.map((question, index) => (
         <div key={index} className="flex flex-col gap-2 mb-2">
           <Label className="font-bold">{question.title}</Label>
-          {question.type === "input" && <Input type="text" />}
-          {question.type === "textarea" && <Textarea />}
+          {question.type === "input" && (
+            <Input
+              type="text"
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setEvent({ ...event, [question.key]: e.target.value });
+              }}
+            />
+          )}
+          {question.type === "textarea" && (
+            <Textarea
+              onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+                setEvent({
+                  ...event,
+                  [question.key as keyof EventType]: e.target.value,
+                });
+                console.log(event);
+              }}
+            />
+          )}
         </div>
       ))}
     </>
   );
 };
+
 const Events = () => {
+  const [events, setEvents] = useState<EventType[]>(MOCK);
+  const [event, setEvent] = useState<EventType>({
+    name: "",
+    description: "",
+    location: "",
+    date: "",
+  });
   const [popup, setPopup] = useState<Popup>({
     title: "",
     message: "",
@@ -37,15 +69,23 @@ const Events = () => {
     cancel: false,
     submit: false,
   });
+
+  const handleSubmit = () => {
+    console.log("Current Event State:", event); // Debugging
+    setEvents((prevEvents) => [...prevEvents, event]); // Functional update
+    setEvent({ name: "", description: "", location: "", date: "" }); // Reset form
+    setPopup({ ...popup, visible: false }); // Close modal
+  };
+
   return (
-    <div className="w-full flex flex-col">
+    <div className="w-full flex flex-col bg-black/5 p-4 rounded-md border border-black/20">
       <div
         className="flex flex-col items-center bg-white border border-black/20 font-bold rounded-md p-4 cursor-pointer"
         onClick={() =>
           setPopup({
             title: "Add Event",
             visible: true,
-            message: <EventModal />,
+            message: <EventModal event={event} setEvent={setEvent} />,
             cancel: true,
             submit: true,
           })
@@ -63,7 +103,7 @@ const Events = () => {
             setPopup({
               title: "About Adding Event",
               message:
-                "Add an event describing what your oganization have done in the past weeks! TTickle will use these events to summarize in your newsletter!",
+                "Add an event describing what your organization have done in the past weeks! TTickle will use these events to summarize in your newsletter!",
               visible: true,
               cancel: true,
               submit: false,
@@ -72,11 +112,14 @@ const Events = () => {
         />
       </div>
       <div className="flex flex-col gap-2">
-        <Event
-          name="Christmas Food Drive"
-          location="Los Angeles, CA"
-          date="June 25, 2025"
-        />
+        {events.map((event, index) => (
+          <Event
+            name={event.name}
+            location={event.location}
+            date={event.date}
+            key={index}
+          />
+        ))}
       </div>
       <AlertDialog open={popup.visible}>
         <AlertDialogContent className="flex flex-col gap-3">
@@ -91,9 +134,7 @@ const Events = () => {
               </AlertDialogCancel>
             )}
             {popup.submit && (
-              <AlertDialogAction
-                onClick={() => setPopup({ ...popup, visible: false })}
-              >
+              <AlertDialogAction onClick={handleSubmit}>
                 Submit
               </AlertDialogAction>
             )}
