@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -55,11 +55,12 @@ const Creator = () => {
       <div className="font-extrabold text-3xl mb-8">Newsletter</div>
       <div className="flex flex-row h-full gap-2">
         <div className="flex flex-col bg-black/5 p-4 rounded-md border border-black/20 w-full gap-4 h-full">
-          <Textarea
-            value={message}
+          {/* <Textarea
+            value={displayedMessage}
             onChange={(e) => setMessage(e.target.value)}
             className="resize-none border-black/20 bg-white h-full"
-          />
+          /> */}
+          <TypingEffect message={message} setMessage={setMessage} />
           <Prompt text={prompt} />
           <div className="relative">
             <Input
@@ -85,3 +86,36 @@ const Creator = () => {
 };
 
 export default Creator;
+
+const TypingEffect = ({
+  message,
+  setMessage,
+}: {
+  message: string;
+  setMessage: (value: string) => void;
+}) => {
+  const [index, setIndex] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
+
+  const displayedMessage = useMemo(
+    () => message.slice(0, index),
+    [message, index],
+  );
+
+  useEffect(() => {
+    if (index < message.length) {
+      const timeout = setTimeout(() => setIndex((prev) => prev + 1), 30);
+      return () => clearTimeout(timeout);
+    } else {
+      setIsTyping(false); // editing is allowed after typing is done
+    }
+  }, [index, message]);
+
+  return (
+    <Textarea
+      value={isTyping ? displayedMessage : message}
+      onChange={(e) => setMessage(e.target.value)}
+      className="resize-none border-black/20 bg-white h-full"
+    />
+  );
+};
