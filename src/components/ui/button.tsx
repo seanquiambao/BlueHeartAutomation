@@ -24,6 +24,8 @@ const buttonVariants = cva(
           "bg-white text-black border-black border-2 rounded-none font-bold w-28",
         ttickle:
           "text-white bg-ttickles-blue font-semibold hover:opacity-75 duration-300",
+        search:
+          "text-white bg-ttickles-blue font-semibold hover:opacity-75 duration-300",
       },
       size: {
         default: "h-9 px-4 py-2",
