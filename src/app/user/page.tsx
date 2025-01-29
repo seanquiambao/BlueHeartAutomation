@@ -13,7 +13,7 @@ const Page = () => {
     });
   }, []);
   // console.log("page")
-  console.log(user)
+  console.log(user);
   return <div className="w-full flex justify-center"></div>;
 };
 
