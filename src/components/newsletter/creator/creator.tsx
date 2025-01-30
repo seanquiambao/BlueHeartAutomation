@@ -97,19 +97,24 @@ const TypingEffect = ({
   const [index, setIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
 
+  useEffect(() => {
+    if (index < message.length) {
+      const timeout = setTimeout(() => setIndex(index + 1), 10);
+      return () => clearTimeout(timeout);
+    } else {
+      setIsTyping(false);
+    }
+  }, [index, message]);
+
+  useEffect(() => {
+    setIndex(0);
+    setIsTyping(true);
+  }, [message]);
+
   const displayedMessage = useMemo(
     () => message.slice(0, index),
     [message, index],
   );
-
-  useEffect(() => {
-    if (index < message.length) {
-      const timeout = setTimeout(() => setIndex((prev) => prev + 1), 30);
-      return () => clearTimeout(timeout);
-    } else {
-      setIsTyping(false); // editing is allowed after typing is done
-    }
-  }, [index, message]);
 
   return (
     <Textarea

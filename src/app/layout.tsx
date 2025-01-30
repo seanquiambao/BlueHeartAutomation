@@ -28,7 +28,10 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <head>
-          {/* <script src="https://unpkg.com/react-scan/dist/auto.global.js" async /> */}
+          {/* <script
+            src="https://unpkg.com/react-scan/dist/auto.global.js"
+            async
+          /> */}
         </head>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
