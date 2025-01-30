@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
+import { db } from "../../../../server/utils/firebase";
+import { collection, addDoc } from "firebase/firestore";
 import Together from "together-ai";
 
 const together = new Together({
@@ -31,7 +33,11 @@ export const POST = async (req: NextRequest) => {
     //     // use process.stdout.write instead of console.log to avoid newlines
     //     process.stdout.write(chunk.choices[0]?.delta?.content || '');
     //   }
-
+    // user: userid need to link it to the respective user
+    await addDoc(collection(db, "responses"), {
+      response: AIresponse,
+      timestamp: new Date(),
+    });
     return NextResponse.json({ items: AIresponse }, { status: 200 });
   } catch (err) {
     return NextResponse.json(

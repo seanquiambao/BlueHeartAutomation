@@ -1,9 +1,6 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
-import { db } from "../../../../server/utils/firebase";
-import { collection, addDoc } from "firebase/firestore";
-
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -43,7 +40,6 @@ const Creator = () => {
       const data = await res.json();
       console.log(data);
       setMessage(data.items || "No response received.");
-      await addDoc(collection(db, "responses"), data.items);
     } catch (error) {
       console.error("Error fetching AI response:", error);
       // setMessage("Failed to fetch response.");
