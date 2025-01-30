@@ -1,10 +1,13 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import { db } from "../../../../server/utils/firebase";
+import { collection, addDoc } from "firebase/firestore";
+
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
+import { Search, Loader } from "lucide-react";
 
 import Events from "./events";
 import Prompt from "./prompt";
@@ -13,6 +16,7 @@ const Creator = () => {
   const [message, setMessage] = useState("");
   const [prompt, setPrompt] = useState("");
   const [error, setError] = useState(false);
+  const [loading, setIsLoading] = useState(false);
   console.log(message);
   const generateAI = async () => {
     // const prompt = {
@@ -22,6 +26,7 @@ const Creator = () => {
     //     "This Christmas, the spirit of giving is alive and well in Los Angeles...",
     //   date: "Dec. 25, 2024",
     // };
+    setIsLoading(true);
     try {
       const res = await fetch("/api/ai/", {
         method: "POST",
@@ -38,10 +43,13 @@ const Creator = () => {
       const data = await res.json();
       console.log(data);
       setMessage(data.items || "No response received.");
+      await addDoc(collection(db, "responses"), data.items);
     } catch (error) {
       console.error("Error fetching AI response:", error);
       // setMessage("Failed to fetch response.");
       setError(true);
+    } finally {
+      setIsLoading(false); // Re-enable button
     }
   };
 
@@ -74,8 +82,9 @@ const Creator = () => {
               variant="search"
               className="absolute top-0 right-0"
               onClick={generateAI}
+              disabled={loading}
             >
-              <Search />
+              {loading ? <Loader className="animate-spin" /> : <Search />}
             </Button>
           </div>
         </div>
