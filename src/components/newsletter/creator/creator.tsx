@@ -25,7 +25,7 @@ const Creator = () => {
     // };
     setIsLoading(true);
     try {
-      const res = await fetch("/api/ai/", {
+      const res = await fetch("/api/ollama/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
