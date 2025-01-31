@@ -4,6 +4,7 @@ import ollama from "ollama";
 export const POST = async (req: NextRequest) => {
   try {
     const body = await req.json();
+    console.log(body);
 
     const response = await ollama.chat({
       model: "llama3.2",
