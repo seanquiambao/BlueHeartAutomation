@@ -86,7 +86,7 @@ const Signup = () => {
         <div className="h-auto bg-white border border-black w-full md:w-1/3">
           <div className="p-6 md:p-8">
             <h1 className="mb-6 text-5xl font-bold text-center text-ttickles-blue">
-              Register your Organization
+              User Registration
             </h1>
             <p className=" text-sm font-medium text-center whitespace-normal">
               Join us and make a difference! By registering, you{"'"}ll gain

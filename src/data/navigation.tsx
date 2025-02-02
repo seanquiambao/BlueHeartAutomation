@@ -1,12 +1,4 @@
-import {
-  Users,
-  Link,
-  Mail,
-  Users2,
-  User,
-  Building2,
-  Building,
-} from "lucide-react";
+import { Users, Link, Mail, Users2, User, Building2 } from "lucide-react";
 interface Tab {
   name: string;
   link: string;
@@ -57,11 +49,6 @@ export const TABS: Tabs = {
   orgs: {
     expand: true,
     tabs: [
-      {
-        name: "My Organization",
-        link: "/orgs/@mine",
-        icon: <Building />,
-      },
       {
         name: "Manage",
         link: "/orgs/@mine/manage",

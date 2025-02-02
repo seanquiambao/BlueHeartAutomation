@@ -23,7 +23,9 @@ const Navigation = () => {
   return (
     <Sidebar className="text-white">
       <SidebarHeader className="flex flex-col items-center">
-        <Image src={Logo} alt="TTickle Logo" />
+        <Link href="/">
+          <Image src={Logo} alt="TTickle Logo" className="hover:scale-105" />
+        </Link>
       </SidebarHeader>
       <SidebarContent className="flex flex-col text-lg ml-3 items-center">
         {NAVTABS.map((tab, index) => (
