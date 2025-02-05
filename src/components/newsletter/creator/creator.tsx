@@ -153,21 +153,24 @@ const TypingEffect = ({
   setMessage: (value: string) => void;
 }) => {
   const [index, setIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(true);
+  const [isTyping, setIsTyping] = useState(false);
+  const prevMessage = useMemo(() => message, []);
 
   useEffect(() => {
-    if (index < message.length) {
-      const timeout = setTimeout(() => setIndex(index + 1), 10);
+    if (message !== prevMessage) {
+      setIndex(0);
+      setIsTyping(true);
+    }
+  }, [message, prevMessage]);
+
+  useEffect(() => {
+    if (isTyping && index < message.length) {
+      const timeout = setTimeout(() => setIndex((i) => i + 1), 10);
       return () => clearTimeout(timeout);
     } else {
       setIsTyping(false);
     }
-  }, [index, message]);
-
-  useEffect(() => {
-    setIndex(0);
-    setIsTyping(true);
-  }, [message]);
+  }, [index, message, isTyping]);
 
   const displayedMessage = useMemo(
     () => message.slice(0, index),
@@ -177,7 +180,11 @@ const TypingEffect = ({
   return (
     <Textarea
       value={isTyping ? displayedMessage : message}
-      onChange={(e) => setMessage(e.target.value)}
+      onChange={(e) => {
+        setMessage(e.target.value);
+        setIsTyping(false);
+        setIndex(e.target.value.length);
+      }}
       className="resize-none border-black/20 bg-white h-full"
     />
   );
