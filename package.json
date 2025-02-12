@@ -27,12 +27,14 @@
     "input-otp": "^1.4.1",
     "lucide-react": "^0.469.0",
     "next": "^14.2.10",
+    "ollama": "^0.5.12",
     "pino": "^9.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "shared": "file:shared",
     "tailwind-merge": "^2.5.5",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "together-ai": "^0.13.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",

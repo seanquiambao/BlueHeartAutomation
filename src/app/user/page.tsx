@@ -1,6 +1,7 @@
 "use client";
 import { User } from "@clerk/nextjs/server";
 import { useEffect, useState } from "react";
+import Content from "@/components/joinorg";
 
 const Page = () => {
   // const clerk = await clerkClient() // server-side method
@@ -14,7 +15,9 @@ const Page = () => {
   }, []);
   // console.log("page")
   console.log(user);
-  return <div className="w-full flex justify-center"></div>;
+  <div className="w-full flex">
+    <Content />
+  </div>;
 };
 
 export default Page;
