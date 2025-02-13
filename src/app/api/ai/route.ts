@@ -1,6 +1,6 @@
+import { db } from "@/utils/firebase";
+import { addDoc, collection } from "firebase/firestore";
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../server/utils/firebase";
-import { collection, addDoc } from "firebase/firestore";
 import Together from "together-ai";
 
 const together = new Together({

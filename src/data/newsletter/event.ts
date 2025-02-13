@@ -1,5 +1,11 @@
 import { EventType } from "@/types/event";
-export const QUESTIONS = [
+
+type QuestionType = {
+  key: keyof EventType; // ✅ Ensures only valid keys are used
+  title: string;
+  type: "input" | "textarea";
+};
+export const QUESTIONS: QuestionType[] = [
   {
     title: "Name",
     key: "name",
