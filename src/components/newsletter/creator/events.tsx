@@ -19,11 +19,10 @@ import { ChangeEvent } from "react";
 import { EventType } from "@/types/event";
 
 type props = {
-  event: EventType;
-  setEvent: (value: EventType) => void;
+  setEvent: (value: (prevEvent: EventType) => EventType) => void;
 };
 
-const EventModal = ({ event, setEvent }: props) => {
+const EventModal = ({ setEvent }: props) => {
   return (
     <>
       {QUESTIONS.map((question, index) => (
@@ -33,18 +32,20 @@ const EventModal = ({ event, setEvent }: props) => {
             <Input
               type="text"
               onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setEvent({ ...event, [question.key]: e.target.value });
+                setEvent((prevEvent: EventType) => ({
+                  ...prevEvent,
+                  [question.key]: e.target.value as EventType[keyof EventType],
+                }));
               }}
             />
           )}
           {question.type === "textarea" && (
             <Textarea
               onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-                setEvent({
-                  ...event,
+                setEvent((prevEvent: EventType) => ({
+                  ...prevEvent,
                   [question.key as keyof EventType]: e.target.value,
-                });
-                console.log(event);
+                }));
               }}
             />
           )}
@@ -56,12 +57,13 @@ const EventModal = ({ event, setEvent }: props) => {
 
 const Events = () => {
   const [events, setEvents] = useState<EventType[]>(MOCK);
-  const [event, setEvent] = useState<EventType>({
+  const [event, setEvent] = useState<EventType>(() => ({
     name: "",
     description: "",
     location: "",
     date: "",
-  });
+  }));
+
   const [popup, setPopup] = useState<Popup>({
     title: "",
     message: "",
@@ -85,7 +87,7 @@ const Events = () => {
           setPopup({
             title: "Add Event",
             visible: true,
-            message: <EventModal event={event} setEvent={setEvent} />,
+            message: <EventModal setEvent={setEvent} />,
             cancel: true,
             submit: true,
           })
