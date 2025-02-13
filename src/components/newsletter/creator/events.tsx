@@ -23,6 +23,10 @@ type props = {
   setEvent: (value: EventType) => void;
 };
 
+type EventsProps = {
+  onChange: (updatedEvent: EventType[]) => void;
+};
+
 const EventModal = ({ event, setEvent }: props) => {
   return (
     <>
@@ -54,8 +58,8 @@ const EventModal = ({ event, setEvent }: props) => {
   );
 };
 
-const Events = () => {
-  const [events, setEvents] = useState<EventType[]>(MOCK);
+const Events = ({ onChange }: EventsProps) => {
+  const [events, setEvents] = useState<EventType[]>(MOCK || []);
   const [event, setEvent] = useState<EventType>({
     name: "",
     description: "",
@@ -72,7 +76,11 @@ const Events = () => {
 
   const handleSubmit = () => {
     console.log("Current Event State:", event); // Debugging
-    setEvents((prevEvents) => [...prevEvents, event]); // Functional update
+    setEvents((prevEvents) => {
+      const updatedEvents = [...prevEvents, event];
+      onChange(updatedEvents);
+      return updatedEvents;
+    });
     setEvent({ name: "", description: "", location: "", date: "" }); // Reset form
     setPopup({ ...popup, visible: false }); // Close modal
   };
