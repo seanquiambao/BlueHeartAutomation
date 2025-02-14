@@ -21,7 +21,9 @@ import { EventType } from "@/types/event";
 type props = {
   setEvent: (value: (prevEvent: EventType) => EventType) => void;
 };
-
+type EventsProps = {
+  onChange: (updatedEvent: EventType[]) => void;
+};
 const EventModal = ({ setEvent }: props) => {
   return (
     <>
