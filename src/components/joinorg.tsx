@@ -18,7 +18,7 @@ export default function OrganizationForm() {
       <h2 className="ml-6 font-bold text-xl">
         Please create or join an organization to continue
       </h2>
-      <div className="w-1/2 mx-auto h-1/2 mt-10 p-6 border rounded-lg shadow-lg bg-white">
+      <div className="w-1/2 mx-auto h-1/2 mt-10 p-6 border rounded-lg shadow-lg bg-white motion-preset-fade-lg motion-duration-800">
         <div className="flex space-x-2 mb-4">
           <Button
             onClick={() => setActiveTab("join")}
