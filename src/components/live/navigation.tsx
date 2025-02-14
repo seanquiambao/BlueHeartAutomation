@@ -6,20 +6,18 @@ import Link from "next/link";
 const Navigation = () => {
   return (
     <div className="flex justify-between w-full sticky top-0 bg-gradient-to-r from-ttickles-blue to-ttickles-lightblue p-4 shadow z-50">
-      <p className="text-2xl font-semibold text-white">TTickle</p>
+      <Link
+        href="/"
+        className="text-2xl font-semibold text-white hover:scale-105"
+      >
+        TTickle
+      </Link>
       <div className="flex gap-x-4 items-center">
         <Link
-          href="/orgs"
+          href="/about"
           className="relative text-white text-lg font-bold group"
         >
-          Organization
-          <span className="absolute -bottom-0.5 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
-        </Link>
-        <Link
-          href="/user"
-          className="relative text-white text-lg font-bold group"
-        >
-          Newsletter
+          About Us
           <span className="absolute -bottom-0.5 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
         </Link>
         <SignedOut>
@@ -37,6 +35,13 @@ const Navigation = () => {
           </Link>
         </SignedOut>
         <SignedIn>
+          <Link
+            href="/orgs/test/newsletter"
+            className="relative text-white text-lg font-bold group"
+          >
+            Dashboard
+            <span className="absolute -bottom-0.5 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"></span>
+          </Link>
           <UserButton />
         </SignedIn>
       </div>

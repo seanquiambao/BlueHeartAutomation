@@ -87,10 +87,8 @@ const Signin = () => {
             Welcome Back
           </h1>
           <p className=" text-sm font-medium text-center whitespace-normal">
-            Join us and make a difference! By registering, you will gain access
-            to a vibrant community of changemakers and unlock tools to help your
-            nonprofit shine. Share your mission, connect with supporters, and
-            amplify your impact
+            Welcome back! Thank you for returning to our vibrant community of
+            changemakers and using our tools to help your nonprofit shine.
           </p>
           <form
             onSubmit={(e) => handleSubmit(e)}
