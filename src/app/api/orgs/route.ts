@@ -2,7 +2,7 @@ import { createOrg, getOrg } from "@/utils/repository/orgRepository";
 import { getUser } from "@/utils/repository/userRepository";
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
-import { Organization } from "shared";
+import { Organization, User } from "shared";
 
 type Props = Organization;
 
@@ -27,7 +27,7 @@ export const GET = async () => {
   const org = await getOrg(result.orgId);
   return NextResponse.json(
     { message: org ?? "You are not a part of an organization." },
-    { status: result ? 200 : 400 },
+    { status: org ? 200 : 400 },
   );
 };
 
@@ -70,6 +70,8 @@ export const POST = async (request: NextRequest) => {
   }
 
   const result = await createOrg(data);
+  const metadata = user.publicMetadata as User;
+  metadata.orgId = data.id;
 
   return NextResponse.json(
     { message: result ?? "This organization already exists." },

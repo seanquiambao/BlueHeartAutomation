@@ -5,11 +5,50 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Organization } from "shared";
+import { Bounce, toast } from "react-toastify";
 
 const OrganizationForm = () => {
   const [orgID, setOrgID] = useState("");
   const [orgName, setOrgName] = useState("");
   const [activeTab, setActiveTab] = useState("join");
+
+  const joinOrg = () => {
+    fetch(`/api/orgs/${orgID}?data=false`).then((resp) => {
+      resp.json().then((json) => {
+        const exists = json["message"];
+        if (!exists) {
+          toast("This organization does not exist.", {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            type: "error",
+            theme: "colored",
+            className: "w-[500px] text-center",
+            transition: Bounce,
+          });
+        } else {
+          toast("Successfully joined an organization!", {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            type: "error",
+            theme: "colored",
+            className: "w-[500px] text-center",
+            transition: Bounce,
+          });
+          //TODO: have to update user object so they actually join the org
+        }
+      });
+    });
+  };
 
   const createOrg = () => {
     fetch("/api/orgs", {
@@ -32,7 +71,25 @@ const OrganizationForm = () => {
         "Content-Type": "application/json",
       },
     }).then((resp) => {
-      resp.json().then((json) => console.log(resp.status, json));
+      resp.json().then((json) => {
+        const msg = json["message"];
+        toast(
+          resp.status == 200 ? "Successfully created your organization." : msg,
+          {
+            position: "top-center",
+            autoClose: 1500,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            type: "success",
+            theme: "colored",
+            className: "w-[500px] text-center",
+            transition: Bounce,
+          },
+        );
+      });
     });
   };
 
@@ -80,7 +137,10 @@ const OrganizationForm = () => {
               value={orgID}
               className="w-full border p-2 rounded-md mt-1"
             />
-            <Button className="mt-3 w-full bg-teal-600 text-white p-2 rounded-md hover:bg-slate-600">
+            <Button
+              className="mt-3 w-full bg-teal-600 text-white p-2 rounded-md hover:bg-slate-600"
+              onClick={joinOrg}
+            >
               Submit
             </Button>
           </div>

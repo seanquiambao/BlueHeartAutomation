@@ -44,8 +44,14 @@ export const createUser = async (userId: string) => {
   return true;
 };
 
-export const updateUser = async (user: UserMetadata) => {
-  if (!(await getUser(user.email))) return false;
-  await updateDoc(doc(collection(db, "users"), user.id), user);
+export const updateUser = async (metadata: UserMetadata) => {
+  if (!(await getUser(metadata.clerkId))) return false;
+
+  const clerk = await clerkClient();
+  await clerk.users.updateUser(metadata.clerkId, {
+    publicMetadata: metadata,
+  });
+
+  await updateDoc(doc(collection(db, "users"), metadata.id), metadata);
   return true;
 };

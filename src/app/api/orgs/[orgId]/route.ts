@@ -28,15 +28,28 @@ export const GET = async (request: NextRequest, { params }: Params) => {
     );
   }
 
-  if (result.role.toLowerCase() != "administrator") {
+  let dataRequested = true;
+  if (
+    request.nextUrl.searchParams.has("data") &&
+    !JSON.parse(request.nextUrl.searchParams.get("data") as string)
+  ) {
+    dataRequested = false;
+  }
+
+  if (dataRequested && result.role.toLowerCase() != "administrator") {
     return NextResponse.json(
       { message: "You are not authorized to access another Group's data." },
       { status: 401 },
     );
   }
+
   const org = await getOrg(params.orgId);
   return NextResponse.json(
-    { message: org ?? "This organization does not exist." },
+    {
+      message: dataRequested
+        ? (org ?? "This organization does not exist.")
+        : org != undefined,
+    },
     { status: result ? 200 : 400 },
   );
 };
