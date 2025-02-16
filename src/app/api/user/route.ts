@@ -1,96 +1,74 @@
-import { db } from "@/utils/firebase";
-import { auth, clerkClient } from "@clerk/nextjs/server";
 import {
-  collection,
-  doc,
-  getDocs,
-  limit,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
-import { NextResponse } from "next/server";
+  createUser,
+  getUser,
+  updateUser,
+} from "@/utils/repository/userRepository";
+import { auth } from "@clerk/nextjs/server";
+import { NextRequest, NextResponse } from "next/server";
 import { User } from "shared";
+
+type Props = User;
 
 export const GET = async () => {
   const { userId } = await auth();
-  // console.log("fetching user")
-  if (userId) {
-    // console.log("User id found")
-    const clerk = await clerkClient();
-    const user = await clerk.users.getUser(userId);
-    if (user) {
-      return NextResponse.json(
-        {
-          message: user.publicMetadata,
-        },
-        { status: 200 },
-      );
-    }
+  if (!userId) {
+    return NextResponse.json(
+      { message: "You are not authorized to access the Users API." },
+      { status: 403 },
+    );
   }
+  const result = await getUser(userId);
   return NextResponse.json(
-    {
-      message: "Unable to fetch user",
-    },
-    { status: 500 },
+    { message: result ?? "Unable to retrieve your user data." },
+    { status: result ? 200 : 400 },
   );
 };
 
-export const POST = async () => {
+export const PUT = async () => {
   const { userId } = await auth();
-  // console.log("fetching user")
-  if (userId) {
-    // console.log("User id found")
-    const clerk = await clerkClient();
-    const user = await clerk.users.getUser(userId);
-    if (user) {
-      // console.log("User found")
-      const queryReq = query(
-        collection(db, "users"),
-        where("email", "==", user.primaryEmailAddress?.emailAddress),
-        limit(1),
-      );
-      const querySnapshot = await getDocs(queryReq);
-      const uuid = crypto.randomUUID();
-      // console.log("?")
-      let metadata: User;
-      if (querySnapshot.empty) {
-        metadata = {
-          email: user.primaryEmailAddress?.emailAddress ?? "",
-          id: uuid,
-          name: user.username ?? "",
-          role: "user",
-          orgId: "",
-          icon: "",
-        };
-        await setDoc(doc(collection(db, "users"), uuid), metadata);
-        await clerk.users.updateUser(userId, {
-          publicMetadata: metadata,
-        });
-        // console.log("Set metadata")
-      } else {
-        metadata = querySnapshot.docs[0].data() as User;
-        await clerk.users.updateUser(userId, {
-          publicMetadata: metadata,
-        });
-        // console.log("Fetched metadata")
-      }
-      return NextResponse.json(
-        {
-          metadata: metadata,
-        },
-        {
-          status: 200,
-        },
-      );
-    }
+  if (!userId) {
     return NextResponse.json(
-      {
-        message: "Ran into an error fetching user's metadata",
-      },
-      {
-        status: 500,
-      },
+      { message: "You are not authorized to access the Users API." },
+      { status: 403 },
     );
   }
+  const result = await createUser(userId);
+  return NextResponse.json(
+    { message: result ?? "Unable to update your user data." },
+    { status: result ? 200 : 400 },
+  );
+};
+
+export const POST = async (request: NextRequest) => {
+  const { userId } = await auth();
+  if (!userId) {
+    return NextResponse.json(
+      { message: "You are not authorized to access the Users API." },
+      { status: 403 },
+    );
+  }
+  if (
+    request.headers.get("Content-Type")?.toLowerCase() != "application/json"
+  ) {
+    return NextResponse.json(
+      { message: "Please provide updated user data." },
+      { status: 400 },
+    );
+  }
+
+  const data = (await request.json().catch(() => undefined)) as
+    | Props
+    | undefined;
+  if (!data) {
+    return NextResponse.json(
+      { message: "Please provide updated user data." },
+      { status: 400 },
+    );
+  }
+
+  const result = await updateUser(data);
+  return NextResponse.json(
+    { message: result ?? "Unable to update your user data." },
+    { status: result ? 200 : 400 },
+  );
 };

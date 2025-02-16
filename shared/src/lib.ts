@@ -1,11 +1,13 @@
 export type Region = "US" | "Canada";
-
+export type Role = "Administrator" | "User";
+export const RoleValues = ["Administrator", "User"];
 export type User = {
+  clerkId: string;
   id: string;
   email: string;
   name: string;
   icon: string;
-  role: string;
+  role: Role;
   orgId: string;
 };
 

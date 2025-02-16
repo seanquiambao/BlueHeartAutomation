@@ -4,11 +4,37 @@ import { Button } from "./ui/button";
 // import Image from "next/image";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { Organization } from "shared";
 
-export default function OrganizationForm() {
+const OrganizationForm = () => {
   const [orgID, setOrgID] = useState("");
   const [orgName, setOrgName] = useState("");
   const [activeTab, setActiveTab] = useState("join");
+
+  const createOrg = () => {
+    fetch("/api/orgs", {
+      body: JSON.stringify({
+        id: crypto.randomUUID(),
+        name: orgName,
+        description: "Your organization's description goes here.",
+        icon: "",
+        website: "http://yourwebsite.tld",
+        donors: [],
+        media: [],
+        newsletters: [],
+        notes: [],
+        themes: [],
+        users: [],
+        region: "US",
+      } as Organization),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((resp) => {
+      resp.json().then((json) => console.log(resp.status, json));
+    });
+  };
 
   return (
     <div className="w-full">
@@ -73,7 +99,10 @@ export default function OrganizationForm() {
               value={orgName}
               className="w-full border p-2 rounded-md mt-1"
             />
-            <Button className="mt-3 w-full bg-teal-600 text-white p-2 rounded-md hover:bg-slate-600">
+            <Button
+              className="mt-3 w-full bg-teal-600 text-white p-2 rounded-md hover:bg-slate-600"
+              onClick={createOrg}
+            >
               Submit
             </Button>
           </div>
@@ -81,4 +110,6 @@ export default function OrganizationForm() {
       </div>
     </div>
   );
-}
+};
+
+export default OrganizationForm;

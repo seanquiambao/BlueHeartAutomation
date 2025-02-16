@@ -30,7 +30,7 @@ export default function AuthProvider({
         const token = await getToken({ template: "integration_firebase" });
         await signInWithCustomToken(firebaseAuth, token ?? "");
         // Then call your API route
-        await fetch("/api/user", { method: "POST" });
+        await fetch("/api/user", { method: "PUT" });
       } finally {
         setIsSyncing(false);
       }
